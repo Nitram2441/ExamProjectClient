@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,7 +24,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.examproject.AppService;
+import com.example.examproject.MainActivity;
 import com.example.examproject.R;
+import com.example.examproject.TestActivity;
 import com.example.examproject.ui.login.LoginViewModel;
 import com.example.examproject.ui.login.LoginViewModelFactory;
 
@@ -74,11 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+                    finish();
                 }
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
+                //finish();
+
+                //changed out finish here so that when one enters wrong credentials, one can try again instead of having the whole thing crashing
+                return;
             }
         });
 
@@ -116,9 +124,14 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                try{
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    loginViewModel.login(usernameEditText.getText().toString(),
+                            passwordEditText.getText().toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
     }
@@ -127,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        AppService.initialize(this, model.getToken());
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

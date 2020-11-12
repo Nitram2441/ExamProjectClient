@@ -8,11 +8,15 @@ class LoggedInUserView {
     private String token;
     //... other data fields that may be accessible to the UI
 
-    LoggedInUserView(String displayName) {
-        this.displayName = displayName;
+    LoggedInUserView(String token) {
+        this.token = token;
     }
 
     String getDisplayName() {
         return displayName;
+    }
+
+    String getToken(){
+        return token;
     }
 }
