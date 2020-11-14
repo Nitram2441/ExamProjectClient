@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
@@ -17,10 +18,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     public LayoutInflater mInflater;
     public ItemClickListener mClickListener;
 
+    public List<Project> projects;
+
     // data is passed into the constructor
     public ProjectAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.projects = new ArrayList<>();
     }
 
     // inflates the row layout from xml when needed
@@ -33,14 +37,16 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        //String animal = mData.get(position);
+        Project project = projects.get(position);
+        String projectTitle = project.title;
+        holder.myTextView.setText(projectTitle);
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return projects.size();
     }
 
 
@@ -61,8 +67,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
-        return mData.get(id);
+    public Project getItem(int id) {
+        return projects.get(id);
     }
 
     // allows clicks events to be caught
@@ -73,5 +79,10 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public void setProjects(List<Project> projects){
+        this.projects = projects;
+        notifyDataSetChanged();
     }
 }

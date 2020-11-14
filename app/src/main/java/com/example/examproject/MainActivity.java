@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navView, navController);
 
 
+/*
         //data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Horse");
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
         animalNames.add("Camel");
         animalNames.add("Sheep");
         animalNames.add("Goat");
-
+*/
         // set up the RecyclerView
 
         //RecyclerView recyclerView = findViewById(R.id.rvAnimals);

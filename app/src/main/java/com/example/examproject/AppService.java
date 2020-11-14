@@ -31,6 +31,8 @@ public class AppService implements Response.ErrorListener{
     String token;
     RequestQueue requestQueue;
 
+    String baseUrl = "http://192.168.0.103:8080/ExamProject/api/";
+
 
     public static AppService initialize(Context context, String token){
         SINGELTON = new AppService(context, token);
@@ -48,7 +50,7 @@ public class AppService implements Response.ErrorListener{
     }
 
     public void getProjects(Callback<List<Project>> onPostExecute){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "fakeurl", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, baseUrl + "project/getprojects", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 List<Project> result = new ArrayList<>();
@@ -67,9 +69,10 @@ public class AppService implements Response.ErrorListener{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //cyka
+                
             }
         });
+        requestQueue.add(jsonArrayRequest);
     }
 
 

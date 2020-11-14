@@ -11,9 +11,9 @@ public class Project {
     String description;
 
     public Project(JSONObject jsonObject) throws JSONException {
-        setProjectId(jsonObject.getInt("id"));
-        if(jsonObject.has("title")){
-            setTitle(jsonObject.getString("title"));
+        setProjectId(jsonObject.getInt("projectNumber"));
+        if(jsonObject.has("name")){
+            setTitle(jsonObject.getString("name"));
         }
         if(jsonObject.has("description")){
             setDescription(jsonObject.getString("description"));

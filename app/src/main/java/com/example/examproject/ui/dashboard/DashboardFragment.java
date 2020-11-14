@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.examproject.AppService;
 import com.example.examproject.ProjectAdapter;
 import com.example.examproject.R;
 
@@ -47,7 +48,9 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
         recyclerView = view.findViewById(R.id.rvAnimals);
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
         adapter = new ProjectAdapter(view.getContext(), animalNames);
+        AppService.getInstance().getProjects(adapter::setProjects);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
