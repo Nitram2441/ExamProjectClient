@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements ProjectAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity{
 
-    ProjectAdapter adapter;
+    //ProjectAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements ProjectAdapter.It
         NavigationUI.setupWithNavController(navView, navController);
 
 
-        // data to populate the RecyclerView with
+        //data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Horse");
         animalNames.add("Cow");
@@ -44,16 +44,20 @@ public class MainActivity extends AppCompatActivity implements ProjectAdapter.It
 
         // set up the RecyclerView
 
-        RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProjectAdapter(this, animalNames);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        //RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //adapter = new ProjectAdapter(this, animalNames);
+        //adapter.setClickListener(this);
+        //recyclerView.setAdapter(adapter);
+
+
 
     }
-
+/*
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
+
+ */
 }
