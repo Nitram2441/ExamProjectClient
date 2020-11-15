@@ -15,11 +15,23 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.examproject.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboard_to_project"
+            app:destination="@+id/navigation_project"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.examproject.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_project"
+        android:name="com.example.examproject.ui.dashboard.ProjectFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_project" >
+
+    </fragment>
 </navigation>

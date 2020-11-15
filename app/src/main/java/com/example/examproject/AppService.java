@@ -33,6 +33,7 @@ public class AppService implements Response.ErrorListener{
 
     String baseUrl = "http://192.168.0.103:8080/ExamProject/api/";
 
+    Project temp;
 
     public static AppService initialize(Context context, String token){
         SINGELTON = new AppService(context, token);
@@ -47,6 +48,14 @@ public class AppService implements Response.ErrorListener{
         this.token = token;
         this.requestQueue = Volley.newRequestQueue(context);
         //loadUser();
+    }
+
+    public void setTempProject(Project project){
+        this.temp = project;
+    }
+
+    public Project getTempProject(){
+        return temp;
     }
 
     public void getProjects(Callback<List<Project>> onPostExecute){

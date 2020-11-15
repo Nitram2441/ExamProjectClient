@@ -12,10 +12,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.examproject.AppService;
+import com.example.examproject.MainActivity;
 import com.example.examproject.ProjectAdapter;
 import com.example.examproject.R;
 
@@ -27,6 +32,7 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
 
     ProjectAdapter adapter;
     private RecyclerView recyclerView;
+
 
 
     @Override
@@ -79,7 +85,12 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(view.getContext(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-        System.out.println("ayaya");
+
+        //store the project that has been clicked on, because i can't find a good way to send it along
+        AppService.getInstance().setTempProject(adapter.getItem(position));
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_project);
+
     }
 
 
