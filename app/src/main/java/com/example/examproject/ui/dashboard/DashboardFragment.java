@@ -89,6 +89,7 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
         //store the project that has been clicked on, because i can't find a good way to send it along
         AppService.getInstance().setTempProject(adapter.getItem(position));
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        //navController.popBackStack();
         navController.navigate(R.id.navigation_project);
 
     }

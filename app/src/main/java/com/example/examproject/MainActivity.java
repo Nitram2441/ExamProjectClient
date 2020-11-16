@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navView, navController);
 
 
+
     //navController.navigate(R.id.navigation_dashboard);
 /*
         //data to populate the RecyclerView with
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
+
 /*
     @Override
     public void onItemClick(View view, int position) {
@@ -63,4 +65,14 @@ public class MainActivity extends AppCompatActivity{
 
  */
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        System.out.println("Back Button Pressed");
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        //navController.navigate(R.id.navigation_project);
+
+        navController.navigateUp();
+        return super.onSupportNavigateUp();
+        // do your stuff here
+    }
 }

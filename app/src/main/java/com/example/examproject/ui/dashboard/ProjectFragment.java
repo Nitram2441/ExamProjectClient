@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.examproject.AppService;
+import com.example.examproject.Project;
 import com.example.examproject.R;
 
 /**
@@ -65,9 +66,67 @@ public class ProjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        final View view = inflater.inflate(R.layout.fragment_project, container, false);
+
         //retrieves clicked project
         System.out.println("Project fragment view created: " + AppService.getInstance().getTempProject().getProjectId());
 
-        return inflater.inflate(R.layout.fragment_project, container, false);
+        Project project = AppService.getInstance().getTempProject();
+
+
+
+        //TextView projectNumber = getActivity().findViewById(R.id.textViewProjectNumber);
+        TextView projectNumber = (TextView) view.findViewById(R.id.textViewProjectNumber);
+
+        TextView projectName = (TextView) view.findViewById(R.id.textViewProjectName);
+        TextView projectCustomer = (TextView) view.findViewById(R.id.textViewCustomer);
+        TextView projectManager = (TextView) view.findViewById(R.id.textViewProjectManager);
+        TextView projectDescription = (TextView) view.findViewById(R.id.textViewDescription);
+
+        if(project.getProjectId() >= 0){
+            projectNumber.setText((project.getProjectId() + ""));
+        }
+        else{
+            projectNumber.setText(("Field not specified"));
+        }
+
+        if(project.getTitle() != null){
+            projectName.setText(project.getTitle());
+        }
+        else{
+            projectName.setText(("Field not specified"));
+        }
+
+        if(project.getCustomer() != null){
+            projectCustomer.setText(project.getCustomer());
+        }
+        else{
+            projectCustomer.setText(("Field not specified"));
+        }
+
+        if(project.getProjectManagerId() != null){
+            projectManager.setText(project.getProjectManagerId());
+        }
+        else{
+            projectManager.setText(("Field not specified"));
+        }
+
+        if(project.getDescription() != null){
+            projectDescription.setText(project.getDescription());
+        }
+        else{
+            projectDescription.setText(("Field not specified"));
+        }
+
+
+
+
+
+
+
+        return view;
+
+
     }
+
 }
