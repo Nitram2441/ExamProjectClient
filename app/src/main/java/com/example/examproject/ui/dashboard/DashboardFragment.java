@@ -19,12 +19,16 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.examproject.AbstractAsyncTask;
 import com.example.examproject.AppService;
 import com.example.examproject.MainActivity;
+import com.example.examproject.PostProjectTask;
+import com.example.examproject.Project;
 import com.example.examproject.ProjectAdapter;
 import com.example.examproject.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment implements ProjectAdapter.ItemClickListener {
 
@@ -46,6 +50,20 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
         animalNames.add("Camel");
         animalNames.add("Sheep");
         animalNames.add("Goat");
+
+        Project project = new Project();
+        project.setTitle("title");
+        project.setDescription("desc");
+        //project.setProjectId();
+        project.setProjectManagerId("1");
+
+
+        new PostProjectTask(new AbstractAsyncTask.OnPostExecute<List<Project>>() {
+            @Override
+            public void onPostExecute(List<Project> projects) {
+                System.out.println(project.getTitle());
+            }
+        }, this::onException).execute(project);
 
         // set up the RecyclerView
 
@@ -80,6 +98,11 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
 
 
  */
+    }
+
+
+    protected void onException(Throwable throwable){
+
     }
 
     @Override

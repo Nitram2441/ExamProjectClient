@@ -94,6 +94,7 @@ public class AppService implements Response.ErrorListener{
         HttpURLConnection result = (HttpURLConnection) new URL(url).openConnection();
         result.setRequestProperty("Authorization", "Bearer " + token);
         result.setConnectTimeout(3000);
+        System.out.println(token + "THIS SHOULD BE TOKEN");
         return result;
     }
 
