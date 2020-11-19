@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.examproject.AppService;
 import com.example.examproject.Project;
@@ -58,13 +60,11 @@ public class ProjectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        System.out.println("Project fragment created");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         final View view = inflater.inflate(R.layout.fragment_project, container, false);
 
@@ -73,16 +73,14 @@ public class ProjectFragment extends Fragment {
 
         Project project = AppService.getInstance().getTempProject();
 
-
-
-        //TextView projectNumber = getActivity().findViewById(R.id.textViewProjectNumber);
+        //collect the ui elements that the code should alter
         TextView projectNumber = (TextView) view.findViewById(R.id.textViewProjectNumber);
-
         TextView projectName = (TextView) view.findViewById(R.id.textViewProjectName);
         TextView projectCustomer = (TextView) view.findViewById(R.id.textViewCustomer);
         TextView projectManager = (TextView) view.findViewById(R.id.textViewProjectManager);
         TextView projectDescription = (TextView) view.findViewById(R.id.textViewDescription);
 
+        //alter said ui elements
         if(project.getProjectId() >= 0){
             projectNumber.setText((project.getProjectId() + ""));
         }
@@ -117,16 +115,9 @@ public class ProjectFragment extends Fragment {
         else{
             projectDescription.setText(("Field not specified"));
         }
-
-
-
-
-
-
-
         return view;
-
-
     }
+
+
 
 }

@@ -2,6 +2,9 @@ package com.example.examproject.ui.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -38,6 +41,11 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
     private RecyclerView recyclerView;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,7 +65,7 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
         //project.setProjectId();
         project.setProjectManagerId("1");
 
-
+/*used to test that projects can be created
         new PostProjectTask(new AbstractAsyncTask.OnPostExecute<List<Project>>() {
             @Override
             public void onPostExecute(List<Project> projects) {
@@ -65,6 +73,8 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
             }
         }, this::onException).execute(project);
 
+
+ */
         // set up the RecyclerView
 
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
@@ -115,6 +125,36 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
         //navController.popBackStack();
         navController.navigate(R.id.navigation_project);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menutest, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        /*
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                Toast.makeText(getActivity(), "Calls Icon Click", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+         */
+
+        if (item.getItemId() == R.id.action_cart){
+            System.out.println("+ was clicked :)");
+
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.navigation_projectcreate);
+
+
+        }
+        return true;
     }
 
 

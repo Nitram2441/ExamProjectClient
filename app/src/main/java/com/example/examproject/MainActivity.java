@@ -1,6 +1,8 @@
 package com.example.examproject;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
 
 
 
@@ -75,4 +79,13 @@ public class MainActivity extends AppCompatActivity{
         return super.onSupportNavigateUp();
         // do your stuff here
     }
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.menutest, menu);
+        return true;
+    }
+
+ */
 }

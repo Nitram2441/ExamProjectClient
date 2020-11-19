@@ -17,8 +17,12 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_projectcreate"
+            app:destination="@id/navigation_projectcreate" />
+        <action
             android:id="@+id/action_dashboard_to_project"
             app:destination="@+id/navigation_project"/>
+
     </fragment>
 
     <fragment
@@ -31,7 +35,14 @@
         android:id="@+id/navigation_project"
         android:name="com.example.examproject.ui.dashboard.ProjectFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_project" >
+        tools:layout="@layout/fragment_project" />
 
-    </fragment>
+    <fragment
+        android:id="@+id/navigation_projectcreate"
+        android:name="com.example.examproject.ui.dashboard.CreateProjectFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_projectcreate" />
+
+
+
 </navigation>
