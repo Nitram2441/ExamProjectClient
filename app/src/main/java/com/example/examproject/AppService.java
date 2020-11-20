@@ -33,7 +33,8 @@ public class AppService implements Response.ErrorListener{
 
     String baseUrl = "http://192.168.0.103:8080/ExamProject/api/";
 
-    Project temp;
+    Project tempProject;
+    WorkHour tempWorkHour;
 
     public static AppService initialize(Context context, String token){
         SINGELTON = new AppService(context, token);
@@ -51,11 +52,18 @@ public class AppService implements Response.ErrorListener{
     }
 
     public void setTempProject(Project project){
-        this.temp = project;
+        this.tempProject = project;
     }
 
     public Project getTempProject(){
-        return temp;
+        return tempProject;
+    }
+
+    public void setTempWorkHour(WorkHour workHour){
+        this.tempWorkHour = workHour;
+    }
+    public WorkHour getTempWorkHour(){
+        return tempWorkHour;
     }
 
     public void getProjects(Callback<List<Project>> onPostExecute){
@@ -82,6 +90,32 @@ public class AppService implements Response.ErrorListener{
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public void getWorkHours(Callback<List<WorkHour>> onPostExecute){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, baseUrl + "workhour/getworkhours", null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                List<WorkHour> result = new ArrayList<>();
+                try{
+                    for(int i = 0; i < response.length(); i++){
+                        WorkHour workHour = new WorkHour(response.getJSONObject(i));
+                        result.add(new WorkHour(response.getJSONObject(i)));
+                    }
+                } catch (JSONException e){
+                    //onError.onErrorResponse(new VolleyError(e));
+                    e.printStackTrace();
+                }
+                onPostExecute.onPostExecute(result);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+
     }
 
 

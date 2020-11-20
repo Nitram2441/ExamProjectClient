@@ -12,7 +12,7 @@ public class WorkHour {
     String comment;
 
     public WorkHour(JSONObject jsonObject) throws JSONException{
-        setWorkHourId(jsonObject.getInt("id"));
+        setWorkHourId(jsonObject.getInt("entityId"));
         /* needs to be converted from string to localdatetime
         if(jsonObject.has("start")){
             setStart(jsonObject.getString("start"));
