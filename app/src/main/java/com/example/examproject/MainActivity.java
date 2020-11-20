@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity{
         return super.onSupportNavigateUp();
         // do your stuff here
     }
+    
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

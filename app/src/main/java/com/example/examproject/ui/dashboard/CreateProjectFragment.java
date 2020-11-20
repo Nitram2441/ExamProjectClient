@@ -9,9 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.examproject.AbstractAsyncTask;
 import com.example.examproject.AppService;
+import com.example.examproject.MainActivity;
 import com.example.examproject.PostProjectTask;
 import com.example.examproject.Project;
 import com.example.examproject.R;
@@ -42,7 +45,6 @@ public class CreateProjectFragment extends Fragment {
         EditText projectName = (EditText) view.findViewById(R.id.textViewProjectName);
         EditText projectCustomer = (EditText) view.findViewById(R.id.textViewCustomer);
         EditText projectDescription = (EditText) view.findViewById(R.id.textViewDescription);
-        //TODO: Get back here when UI is made
 
 
 
@@ -67,6 +69,16 @@ public class CreateProjectFragment extends Fragment {
                         System.out.println(project.getTitle());
                     }
                 }, this::onException).execute(project);
+
+
+                //this is a temporary thing, at some point i'll have to figure out how to make sure
+                //it is added to the server before navigating back
+                long timer = System.currentTimeMillis() + 50;
+                while(timer > System.currentTimeMillis()){
+
+                }
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_dashboard);
             }
 
             protected void onException(Throwable throwable) {
@@ -76,5 +88,7 @@ public class CreateProjectFragment extends Fragment {
 
         return view;
     }
+
+
 
 }
