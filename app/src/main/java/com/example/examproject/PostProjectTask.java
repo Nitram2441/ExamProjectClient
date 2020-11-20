@@ -63,6 +63,8 @@ public class PostProjectTask extends AbstractAsyncTask<Project, Void, List<Proje
                 addFormField(bw, "name", project.getTitle());
                 bw.write(CRLF);
                 addFormField(bw, "description", project.getDescription());
+                bw.write(CRLF);
+                addFormField(bw, "customer", project.getCustomer());
                 //bw.write(CRLF);
                 //addFormField(bw, "image", Integer.toString(project.getPrice()));
 

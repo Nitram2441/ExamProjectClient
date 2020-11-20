@@ -73,7 +73,7 @@ public class CreateProjectFragment extends Fragment {
 
                 //this is a temporary thing, at some point i'll have to figure out how to make sure
                 //it is added to the server before navigating back
-                long timer = System.currentTimeMillis() + 50;
+                long timer = System.currentTimeMillis() + 200;
                 while(timer > System.currentTimeMillis()){
 
                 }
