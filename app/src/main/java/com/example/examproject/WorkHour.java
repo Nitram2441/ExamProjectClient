@@ -7,21 +7,38 @@ import java.time.LocalDateTime;
 
 public class WorkHour {
     int workHourId;
-    LocalDateTime start;
-    LocalDateTime stop;
+    String start;
+    String stop;
     String comment;
+    String userId;
+    String projectName;
 
     public WorkHour(JSONObject jsonObject) throws JSONException{
         setWorkHourId(jsonObject.getInt("entityId"));
-        /* needs to be converted from string to localdatetime
-        if(jsonObject.has("start")){
-            setStart(jsonObject.getString("start"));
+        if(jsonObject.has("workStart")){
+            setStart(jsonObject.getString("workStart"));
         }
-         */
         if(jsonObject.has("comment")){
             setComment(jsonObject.getString("comment"));
         }
+        if(jsonObject.has("employee")){
+            JSONObject u;
+            u = jsonObject.getJSONObject("employee");
+            setUser(u.getString("userid"));
+        }
+        if(jsonObject.has("project")){
+            JSONObject u;
+            u = jsonObject.getJSONObject("project");
+            setProjectName(u.getString("name"));
+        }
 
+    }
+    public String getProjectName(){
+        return projectName;
+    }
+
+    public void setProjectName(String projectName){
+        this.projectName = projectName;
     }
 
     public int getWorkHourId() {
@@ -32,19 +49,19 @@ public class WorkHour {
         this.workHourId = workHourId;
     }
 
-    public LocalDateTime getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public LocalDateTime getStop() {
+    public String getStop() {
         return stop;
     }
 
-    public void setStop(LocalDateTime stop) {
+    public void setStop(String stop) {
         this.stop = stop;
     }
 
@@ -54,5 +71,13 @@ public class WorkHour {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public void setUser(String userid){
+        this.userId = userid;
+    }
+
+    public String getUser(){
+        return userId;
     }
 }

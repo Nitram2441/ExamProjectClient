@@ -89,8 +89,11 @@ public class NotificationsFragment extends Fragment implements WorkHourAdapter.I
         //store the project that has been clicked on, because i can't find a good way to send it along
         AppService.getInstance().setTempWorkHour(adapter.getItem(position));
         System.out.println(AppService.getInstance().getTempWorkHour().getComment());
-        //NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        //navController.navigate(R.id.navigation_project);
+        System.out.println(AppService.getInstance().getTempWorkHour().getStart());
+        System.out.println(AppService.getInstance().getTempWorkHour().getUser());
+        System.out.println(AppService.getInstance().getTempWorkHour().getWorkHourId());
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_work_hour);
 
     }
 

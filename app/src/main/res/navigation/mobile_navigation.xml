@@ -43,6 +43,10 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_projectcreate" />
 
-
+    <fragment
+        android:id="@+id/navigation_work_hour"
+        android:name="com.example.examproject.ui.notifications.WorkHourFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_work_hour" />
 
 </navigation>
