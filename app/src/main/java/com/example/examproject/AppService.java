@@ -1,6 +1,7 @@
 package com.example.examproject;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -9,11 +10,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -48,7 +52,7 @@ public class AppService implements Response.ErrorListener{
     public AppService(Context context, String token){
         this.token = token;
         this.requestQueue = Volley.newRequestQueue(context);
-        //loadUser();
+        loadUser();
     }
 
     public void setTempProject(Project project){
@@ -92,6 +96,7 @@ public class AppService implements Response.ErrorListener{
         requestQueue.add(jsonArrayRequest);
     }
 
+    //Should change this to the getsecuredjsonarray.
     public void getWorkHours(Callback<List<WorkHour>> onPostExecute){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, baseUrl + "workhour/getworkhours", null, new Response.Listener<JSONArray>() {
             @Override
@@ -118,6 +123,120 @@ public class AppService implements Response.ErrorListener{
 
     }
 
+    public void sendWorkHourCreate(){
+        //https://stackoverflow.com/questions/39717802/posting-form-data-parameters-in-the-body-using-volley
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl + "workhour/create",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.networkResponse);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", user.userId);
+                params.put("pid", tempProject.getProjectId() + "");
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders(){
+                return AppService.this.getHeaders();
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public void sendWorkHourEnd(String userId, String comment){
+        //https://stackoverflow.com/questions/39717802/posting-form-data-parameters-in-the-body-using-volley
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, baseUrl + "workhour/endwork",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+                        JSONObject jsonObject;
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.networkResponse);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", userId + "");
+                params.put("comment", comment);
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders(){
+                return AppService.this.getHeaders();
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public void sendSetWorkStatus(String bool){
+        //https://stackoverflow.com/questions/39717802/posting-form-data-parameters-in-the-body-using-volley
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, baseUrl + "auth/adddetails",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.networkResponse);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("atWork", bool);
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders(){
+                return AppService.this.getHeaders();
+            }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void loadUser(){
+        requestQueue.add(new SecuredJsonObjectRequest(Request.Method.GET, baseUrl + "auth/currentuser", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            user = new User(response);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, this));
+    }
+
+
+
 
     public interface Callback<Result>{
         void onPostExecute(Result result);
@@ -140,7 +259,6 @@ public class AppService implements Response.ErrorListener{
 
     protected Map<String, String> getHeaders(){
         HashMap<String, String> result = new HashMap<>();
-        System.out.println("Token: " + token);
         result.put("Authorization", "Bearer " + token);
         return result;
     }
@@ -161,5 +279,20 @@ public class AppService implements Response.ErrorListener{
         public Map<String, String> getHeaders(){
             return AppService.this.getHeaders();
         }
+    }
+
+
+    class SecuredJsonObjectRequest extends JsonObjectRequest{
+        public SecuredJsonObjectRequest(int method, String url, @Nullable JSONObject jsonRequest,
+                                        Response.Listener<JSONObject> listener, @Nullable Response.ErrorListener errorListener){
+            super(method, url, jsonRequest, listener, errorListener);
+        }
+
+        @Override
+        public Map<String, String> getHeaders(){
+            return AppService.this.getHeaders();
+        }
+
+
     }
 }

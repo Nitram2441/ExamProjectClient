@@ -59,6 +59,7 @@ public class CreateProjectFragment extends Fragment {
 
                 Project project = new Project();
                 project.setTitle(projectName.getText().toString());
+                //GET THIS ONE TO USE USER FROM APPSERVICE
                 project.setProjectManagerId("0");
                 project.setCustomer(projectCustomer.getText().toString());
                 project.setDescription(projectDescription.getText().toString());

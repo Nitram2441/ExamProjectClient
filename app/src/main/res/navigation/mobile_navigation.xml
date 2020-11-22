@@ -49,4 +49,10 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_work_hour" />
 
+    <fragment
+        android:id="@+id/navigation_end_work"
+        android:name="com.example.examproject.ui.notifications.EndWorkFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_end_work" />
+
 </navigation>

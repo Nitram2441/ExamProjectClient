@@ -29,6 +29,7 @@ import com.example.examproject.PostProjectTask;
 import com.example.examproject.Project;
 import com.example.examproject.ProjectAdapter;
 import com.example.examproject.R;
+import com.example.examproject.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();

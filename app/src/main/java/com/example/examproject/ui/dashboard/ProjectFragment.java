@@ -3,17 +3,25 @@ package com.example.examproject.ui.dashboard;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.examproject.AbstractAsyncTask;
 import com.example.examproject.AppService;
+import com.example.examproject.PostProjectTask;
 import com.example.examproject.Project;
 import com.example.examproject.R;
+import com.example.examproject.User;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +88,15 @@ public class ProjectFragment extends Fragment {
         TextView projectManager = (TextView) view.findViewById(R.id.textViewProjectManager);
         TextView projectDescription = (TextView) view.findViewById(R.id.textViewDescription);
 
+        final Button startStop = (Button) view.findViewById(R.id.button);
+        if(AppService.getInstance().getUser().getAtWork()){
+            //Might have to add this to a method that is on resume or something, check it later. works after restarted app
+            startStop.setText(("End Job"));
+        }
+        else{
+            startStop.setText(("Start Job"));
+        }
+
         //alter said ui elements
         if(project.getProjectId() >= 0){
             projectNumber.setText((project.getProjectId() + ""));
@@ -115,8 +132,49 @@ public class ProjectFragment extends Fragment {
         else{
             projectDescription.setText(("Field not specified"));
         }
+
+
+
+
+        startStop.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                User user = AppService.getInstance().getUser();
+                if (!user.getAtWork()){
+                    AppService.getInstance().sendWorkHourCreate();
+                    //need to implement a check to see that it created
+                    AppService.getInstance().sendSetWorkStatus("true");
+                    //startStop.setText(("End Job"));
+                    AppService.getInstance().loadUser();
+
+
+
+                    //this is a temporary thing, at some point i'll have to figure out how to make sure
+                    //it is added to the server before navigating back
+                    long timer = System.currentTimeMillis() + 200;
+                    while(timer > System.currentTimeMillis()){
+
+                    }
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.navigation_dashboard);
+
+                }
+                else{
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.navigation_end_work);
+                }
+
+
+            }
+
+
+            protected void onException(Throwable throwable) {
+            }
+        });
+
+
         return view;
     }
+
 
 
 
