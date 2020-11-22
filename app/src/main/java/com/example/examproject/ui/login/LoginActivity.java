@@ -48,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button createButton = findViewById(R.id.login2);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        createButton.setEnabled(true);
+
+        AppService.initialize(this, "");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -134,13 +138,22 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        createButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AppService.getInstance().sendCreateUser(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                Toast.makeText(v.getContext(), "You May Now Log In", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        AppService.initialize(this, model.getToken());
+        //AppService.initialize(this, model.getToken());
+        AppService.getInstance().setToken(model.getToken());
         startActivity(new Intent(this, MainActivity.class));
     }
 

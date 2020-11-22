@@ -69,6 +69,9 @@ public class AppService implements Response.ErrorListener{
     public WorkHour getTempWorkHour(){
         return tempWorkHour;
     }
+    public void setToken(String token){
+        this.token = token;
+    }
 
     public void getProjects(Callback<List<Project>> onPostExecute){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, baseUrl + "project/getprojects", null, new Response.Listener<JSONArray>() {
@@ -211,6 +214,34 @@ public class AppService implements Response.ErrorListener{
             public Map<String, String> getHeaders(){
                 return AppService.this.getHeaders();
             }
+
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public void sendCreateUser(String username, String password){
+        //https://stackoverflow.com/questions/39717802/posting-form-data-parameters-in-the-body-using-volley
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl + "auth/createadmin",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error.networkResponse);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", username);
+                params.put("pwd", password);
+                return params;
+            }
+
 
         };
         requestQueue.add(stringRequest);
