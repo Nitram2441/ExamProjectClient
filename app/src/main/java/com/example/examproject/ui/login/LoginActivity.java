@@ -143,6 +143,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppService.getInstance().sendCreateUser(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+
+
                 Toast.makeText(v.getContext(), "You May Now Log In", Toast.LENGTH_SHORT).show();
             }
         });
@@ -152,8 +154,9 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        //AppService.initialize(this, model.getToken());
+        AppService.initialize(this, model.getToken());
         AppService.getInstance().setToken(model.getToken());
+
         startActivity(new Intent(this, MainActivity.class));
     }
 

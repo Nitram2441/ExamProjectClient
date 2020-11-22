@@ -71,6 +71,7 @@ public class AppService implements Response.ErrorListener{
     }
     public void setToken(String token){
         this.token = token;
+        SINGELTON.token = token;
     }
 
     public void getProjects(Callback<List<Project>> onPostExecute){
@@ -133,6 +134,7 @@ public class AppService implements Response.ErrorListener{
                     @Override
                     public void onResponse(String response) {
                         System.out.println("Response: " + response);
+                        loadUser();
 
                     }
                 }, new Response.ErrorListener() {
@@ -164,7 +166,7 @@ public class AppService implements Response.ErrorListener{
                     @Override
                     public void onResponse(String response) {
                         System.out.println("Response: " + response);
-                        JSONObject jsonObject;
+                        loadUser();
 
                     }
                 }, new Response.ErrorListener() {
@@ -226,6 +228,7 @@ public class AppService implements Response.ErrorListener{
                     @Override
                     public void onResponse(String response) {
                         System.out.println("Response: " + response);
+                        loadUser();
 
                     }
                 }, new Response.ErrorListener() {

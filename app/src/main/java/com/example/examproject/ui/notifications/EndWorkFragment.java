@@ -82,6 +82,12 @@ public class EndWorkFragment extends Fragment {
 
 
                 AppService.getInstance().sendWorkHourEnd(AppService.getInstance().getUser().getUserId(), commentField.getText().toString());
+
+
+                //need to implement a check to see that it created
+                AppService.getInstance().sendSetWorkStatus("false");
+                //startStop.setText(("End Job"));
+
                 //this is a temporary thing, at some point i'll have to figure out how to make sure
                 //it is added to the server before navigating back
                 long timer = System.currentTimeMillis() + 200;

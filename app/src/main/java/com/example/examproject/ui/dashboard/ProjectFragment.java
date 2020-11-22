@@ -144,7 +144,7 @@ public class ProjectFragment extends Fragment {
                     //need to implement a check to see that it created
                     AppService.getInstance().sendSetWorkStatus("true");
                     //startStop.setText(("End Job"));
-                    AppService.getInstance().loadUser();
+                    
 
 
 
