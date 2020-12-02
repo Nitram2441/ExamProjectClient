@@ -37,7 +37,10 @@ public class WorkHourAdapter extends RecyclerView.Adapter<WorkHourAdapter.ViewHo
     @Override
     public void onBindViewHolder(WorkHourAdapter.ViewHolder holder, int position) {
         WorkHour workHour = workHourEntities.get(position);
-        String workHourComment = workHour.comment;
+
+        String start = workHour.getStart();
+
+        String workHourComment = (start.substring(0, 10) + " - " + workHour.getUser());
         holder.myTextView.setText(workHourComment);
     }
 
