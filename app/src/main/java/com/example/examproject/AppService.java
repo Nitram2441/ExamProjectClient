@@ -102,7 +102,34 @@ public class AppService implements Response.ErrorListener{
 
     //Should change this to the getsecuredjsonarray.
     public void getWorkHours(Callback<List<WorkHour>> onPostExecute){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, baseUrl + "workhour/getworkhours", null, new Response.Listener<JSONArray>() {
+        String getWorkHourUrl;
+        boolean isAdmin = false;
+        JSONArray jsonArray = getUser().getGroups();
+        JSONObject jsonObject;
+
+
+        for(int i = 0; i < jsonArray.length(); i++){
+
+            try {
+                jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString("name").equals("admin")){
+                    isAdmin = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (isAdmin){
+            getWorkHourUrl = baseUrl + "workhour/getworkhours";
+        }
+        else{
+            getWorkHourUrl = baseUrl + "workhour/getworkhoursforuser";
+        }
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, getWorkHourUrl, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 List<WorkHour> result = new ArrayList<>();
@@ -122,7 +149,14 @@ public class AppService implements Response.ErrorListener{
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }){
+
+            @Override
+            public Map<String, String> getHeaders(){
+                return AppService.this.getHeaders();
+            }
+
+        };
         requestQueue.add(jsonArrayRequest);
 
     }
