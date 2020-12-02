@@ -34,13 +34,13 @@
     <fragment
         android:id="@+id/navigation_project"
         android:name="com.example.examproject.ui.dashboard.ProjectFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_project"
         tools:layout="@layout/fragment_project" />
 
     <fragment
         android:id="@+id/navigation_projectcreate"
         android:name="com.example.examproject.ui.dashboard.CreateProjectFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_project_create"
         tools:layout="@layout/fragment_projectcreate" />
 
     <fragment
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/navigation_end_work"
         android:name="com.example.examproject.ui.notifications.EndWorkFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_work_log_end"
         tools:layout="@layout/fragment_end_work" />
 
 </navigation>

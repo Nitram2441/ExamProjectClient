@@ -156,6 +156,14 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         AppService.initialize(this, model.getToken());
         AppService.getInstance().setToken(model.getToken());
+        long timer;
+
+        AppService.getInstance().loadUser();
+        timer = System.currentTimeMillis() + 150;
+        while(timer > System.currentTimeMillis()){
+
+        }
+
 
         startActivity(new Intent(this, MainActivity.class));
     }
