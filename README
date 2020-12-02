@@ -1,0 +1,24 @@
+TODO Before exam:
+Major
+Implement ability to upload pictures
+Implement WorkHour filter by date, project and employee
+- make a custom parser so i can maintain the old api
+Implement project search
+Swap out the timer that waits for 200ms to something that actually can assure action is done
+Make the method group specific, right now they are all admin/user for testing purpouses
+QA
+
+Minor
+Currently you can't see most of workhours because they are shown by comment and there are no comment before finishing job
+Look into why workEnd is not in the view
+Change a lot of ids to reasonable names
+Clean up, remove unused or unneccesary code, and document
+
+
+Will be done on 27th-30th
+
+if time:
+add adress to projects, and try to hook it up to google maps
+
+
+DONE:
