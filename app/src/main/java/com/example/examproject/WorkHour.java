@@ -18,6 +18,9 @@ public class WorkHour {
         if(jsonObject.has("workStart")){
             setStart(jsonObject.getString("workStart"));
         }
+        if(jsonObject.has("workEnd")){
+            setStop(jsonObject.getString("workEnd"));
+        }
         if(jsonObject.has("comment")){
             setComment(jsonObject.getString("comment"));
         }

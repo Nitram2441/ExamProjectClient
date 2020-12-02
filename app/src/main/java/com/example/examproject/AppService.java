@@ -223,7 +223,7 @@ public class AppService implements Response.ErrorListener{
 
     public void sendCreateUser(String username, String password){
         //https://stackoverflow.com/questions/39717802/posting-form-data-parameters-in-the-body-using-volley
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl + "auth/createadmin",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, baseUrl + "auth/create",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -1,5 +1,6 @@
 package com.example.examproject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,6 +8,7 @@ public class User {
     String userId;
     String eMail;
     Boolean atWork;
+    JSONArray groups;
 
     public User(){
 
@@ -20,6 +22,17 @@ public class User {
         if (jsonObject.has("atWork")){
             setAtWork(jsonObject.getBoolean("atWork"));
         }
+        if(jsonObject.has("groups")){
+            setGroups(jsonObject.getJSONArray("groups"));
+        }
+    }
+
+    public JSONArray getGroups() {
+        return groups;
+    }
+
+    public void setGroups(JSONArray groups) {
+        this.groups = groups;
     }
 
     public String getUserId() {

@@ -31,6 +31,10 @@ import com.example.examproject.ProjectAdapter;
 import com.example.examproject.R;
 import com.example.examproject.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,9 +135,33 @@ public class DashboardFragment extends Fragment implements ProjectAdapter.ItemCl
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menutest, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        boolean isAdmin = false;
+        JSONArray jsonArray = AppService.getInstance().getUser().getGroups();
+        JSONObject jsonObject;
+
+
+        for(int i = 0; i < jsonArray.length(); i++){
+
+            try {
+                jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString("name").equals("admin")){
+                    isAdmin = true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if(isAdmin){
+            inflater.inflate(R.menu.menutest, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
+        else{
+            super.onCreateOptionsMenu(menu, inflater);
+        }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
